@@ -54,19 +54,19 @@ exports.placeOrder = async (req, res) => {
     }
 }
 
-// exports.fetchCustomerOrders = async (req, res) => {
-//     try {
-//         const total = await Order.countDocuments()
-//         const { skip, limit } = req.query
-//         const result = await Order
-//             .find({ customer: req.loggedInUser })
-//             .skip(skip)
-//             .limit(limit)
-//             .populate("customer", "_id name")
-//             .populate("products", "-qty -__v")
-//         res.json({ message: "order fetch success", result, total })
-//     } catch (error) {
-//         console.log(error)
-//         res.staus(400).json({ message: "unable to fetch order" })
-//     }
-// }
+exports.fetchCustomerOrders = async (req, res) => {
+    try {
+        const total = await Order.countDocuments()
+        const { skip, limit } = req.query
+        const result = await Order
+            .find({ customer: req.loggedInUser })
+            .skip(skip)
+            .limit(limit)
+            .populate("customer", "_id name")
+            .populate("products", "-qty -__v")
+        res.json({ message: "order fetch success", result, total })
+    } catch (error) {
+        console.log(error)
+        res.staus(400).json({ message: "unable to fetch order" })
+    }
+}
